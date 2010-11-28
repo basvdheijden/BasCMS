@@ -191,7 +191,6 @@ exports.trigger.add = function(req, res, table) {
     for(var i in b.keys) {
       data[i] = req.body[i];
     }
-		console.log(b.table, data);
     db.insert(b.table, [data]);
     req.flash('info', 'New \''+b.table_singular+'\' succesfully added.');
     res.redirect(b.base);

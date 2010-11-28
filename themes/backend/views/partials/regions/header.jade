@@ -14,7 +14,7 @@ html(lang="en")
         a(href: '/admin') BAS CMS
       #operations
         - if (logged_in)
-          a.no-ajax(href: '/users/logout') Log out
+          a.no-ajax(href: '/admin/users/logout') Log out
         - else
-          a(href: '/users/login') Login
+          a(href: '/admin/users/login') Login
       .clear

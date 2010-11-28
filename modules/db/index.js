@@ -75,7 +75,6 @@ exports.remove = function(table, where, callback) {
     open_client(); 
   }
   
-	console.log(table);
   client.open(function(err, db) {
     client.collection(table, function(err, collection) {
       if (collection) {

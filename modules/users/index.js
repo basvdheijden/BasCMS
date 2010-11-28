@@ -8,13 +8,13 @@ var sessions,
 exports.init = function(app, sess) {
   sessions = sess;
   
-  app.get('/users/login', function(req, res, next) {
-    themer.render(req, res, 'users/login', {action: '/users/login'});
+  app.get('/admin/users/login', function(req, res, next) {
+    themer.render(req, res, 'users/login', {action: '/admin/users/login'});
   });
-  app.post('/users/login', exports.user_login, function(req, res, next) {
+  app.post('/admin/users/login', exports.user_login, function(req, res, next) {
     res.redirect('/');
   });
-  app.get('/users/logout', exports.user_logout, function(req, res, next) {
+  app.get('/admin/users/logout', exports.user_logout, function(req, res, next) {
     req.flash('info', 'You are no longer logged in');
     res.redirect('/');
   });
