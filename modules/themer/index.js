@@ -1,23 +1,28 @@
 var users = require('../users'),
-		root = require('../bootstrap').get_root(),
+		bootstrap = require('../bootstrap'),
+		root = bootstrap.get_root(),
     page = 'page',
 		ajax = 'ajax',
 		jade = require('jade'),
     xhr_enabled = true,
 		themes = {};
 
-themes.backend_theme = root + '/themes/backend',
-themes.frontend_theme = root + '/themes/citroenboom';
-themes.admin_active = false;
-
 exports.init = function(app) {
-	app.configure(function(){
-		app.set('views', themes.backend_theme + '/views');
+	bootstrap.get_config(function(cfg) {
+		console.log(cfg);
+		themes.backend_theme = root + '/themes/' + cfg.themes.backend,
+		themes.frontend_theme = root + '/themes/' + cfg.themes.frontend;
+		themes.admin_active = false;
+
+		app.configure(function(){
+			app.set('views', themes.backend_theme + '/views');
+		});
 	});
 }
 
 var set_admin_active = function(req) {
 	themes.admin_active = /\/admin/i.test(req.url);
+	//hier zit n probleem.
 	exports.set_theme(exports.get_theme());
 }
 
