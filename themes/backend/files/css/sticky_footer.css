@@ -1,0 +1,25 @@
+html, body {height: 100%;}
+
+#page-wrapper {min-height: 100%;}
+
+#content {
+	overflow:hidden;
+	padding-bottom: 300px;
+}
+/* must be same height as the footer */
+
+footer {
+	position: relative;
+	margin-top: -250px; /* negative value of footer height */
+	height: 250px;
+	clear:both
+} 
+
+/*Opera Fix*/
+body:before {
+	content:"";
+	height:100%;
+	float:left;
+	width:0;
+	margin-top:-32767px;/
+}

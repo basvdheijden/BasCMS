@@ -1,0 +1,45 @@
+.list {
+	width: 400px;
+	border-top: 1px solid #eee;	
+	margin-left: 0;
+	background-color: white;
+}
+
+.list li {
+	line-height: 30px;
+	list-style-type: none;
+	padding-left: 0;
+	border-bottom: 1px solid #eee;
+	padding: 10px;
+	cursor: pointer;
+}
+.list li:hover,
+.list li:hover a{
+	background-color: #444;
+	color: white !important;
+}
+
+.list li a,
+.list li a:active,
+.list li a:visited{
+	float: left;	
+	border-bottom: none;
+	font-weight: bold;
+}
+
+.list li a.edit,
+.list li a.delete {
+	background: url(/files/img/icons.png) no-repeat; 
+	width: 30px;
+	height: 30px;
+	float: right;
+}
+
+.list li a.edit {
+	background-position: -300px -201px;
+	margin-right: 10px;
+}
+.list li a.delete {
+	background-position: -195px -702px;
+	margin:left: 10px;
+}

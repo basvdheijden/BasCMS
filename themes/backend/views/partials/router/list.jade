@@ -1,0 +1,12 @@
+h1#page-title #{data.type}
+ul.list
+  - each item in data.items
+    li
+      a(href: '/admin/'+data.type+'/'+item[data.index]) #{item[data.index]}
+      - if (logged_in)
+        a.delete(href: '/admin/'+data.type+'/delete/'+item[data.index])
+        a.edit(href: '/admin/'+data.type+'/edit/'+item[data.index])
+			.clear
+br
+- if (logged_in)
+	a(href: '/'+data.type+'/add') Add #{data.type_singular}

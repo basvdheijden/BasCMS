@@ -1,0 +1,17 @@
+- if (messages.length > 0)
+	ul#messages
+		- each msg in messages.error
+			li.error 
+				.bg
+				p #{msg}
+				.clear
+		- each msg in messages.info
+			li.info
+				.bg
+				p #{msg}
+				.clear
+		- each msg in messages.access
+			li.access 
+				.bg
+				p #{msg}
+				.clear

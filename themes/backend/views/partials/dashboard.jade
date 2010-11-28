@@ -1,0 +1,7 @@
+h1#page-title Welcome to BAS CMS
+br
+ul.list
+	- each k in data.links
+		li
+			a(href: k.url) #{k.title}
+			.clear

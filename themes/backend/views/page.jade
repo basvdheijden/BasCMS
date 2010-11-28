@@ -1,0 +1,7 @@
+#page-wrapper
+	!= partial('regions/header', { locals: locals })
+		#content
+			- if (typeof messages)
+				!= partial('messages', { locals: locals })
+			!= partial(locals.view, { locals: locals })
+!= partial('regions/footer')

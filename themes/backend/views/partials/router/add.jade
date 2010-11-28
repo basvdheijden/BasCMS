@@ -1,0 +1,12 @@
+h1#page-title Add new #{data.type_singular}
+form(method: 'post', action: data.action)
+	- each v,k in data.fields
+		.form-item
+			label(for: k)
+				#{k}: 
+			- if (v === 'textarea')
+				textarea(name: k)
+			- else
+				input(type: v, name: k) 
+			.clear
+	input(type: 'submit', value: 'Add '+data.type_singular, name:'submit')

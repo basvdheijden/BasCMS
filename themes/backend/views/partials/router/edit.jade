@@ -1,0 +1,15 @@
+#container
+  h1#page-title Editing #{data.type_singular}: #{data.data[data.index]}
+  form(method: 'post', action: data.action)
+    - each v,k in data.fields
+			.form-item
+				label(for: k)
+					#{k}: 
+				- if (v === 'textarea')
+					textarea(name: k)
+						- if (typeof data.data[k])
+							#{data.data[k]}
+				- else
+					input(type: v, name: k, value: data.data[k])
+				.clear
+    input(type: 'submit', value: 'Update')
