@@ -25,10 +25,13 @@ $(document).ready(function(){
 			e.stopPropagation();
 			var $this = $(this);
 			if ($this.hasClass('no-ajax')) return true;
-			e.preventDefault();
 			var href = $this.attr('href'),
 					loc = window.location;
-			window.location = loc.href.substr(0, loc.href.length-loc.hash.length) + '#/ajax' + href;
+
+			if (/^\/admin/i.test(href)) {
+				e.preventDefault();
+				window.location = loc.href.substr(0, loc.href.length-loc.hash.length) + '#/ajax' + href;
+			}
 		});
 		
 	});

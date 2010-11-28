@@ -58,10 +58,7 @@ exports.render_menu = function(tags, callback) {
 		}
 	}
 
-	if (!ret.length) callback('');
-	themer.render(false,false, 'menu', ret, function(html) {
-		callback(html);	
-	});
+	callback(ret);
 };
 
 exports.register = function(options, callback) {

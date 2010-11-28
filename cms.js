@@ -1,6 +1,8 @@
 var bootstrap = require('./modules/bootstrap'),
     port  = 8080
 
+bootstrap.set_cache(false);
+
 bootstrap.get_config(function(){
 	bootstrap.require('db');
 	bootstrap.require('themer');

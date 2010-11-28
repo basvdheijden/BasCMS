@@ -1,0 +1,5 @@
+!= partial('regions/header', { locals: locals })
+#page-wrapper
+	#content
+		!= partial(locals.view, { locals: locals })
+!= partial('regions/footer')

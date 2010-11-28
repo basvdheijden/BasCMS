@@ -5,14 +5,15 @@ var users = require('../users'),
 		ajax = 'ajax',
 		jade = require('jade'),
     xhr_enabled = true,
-		themes = {};
+		themes = {},
+		app;
 
-exports.init = function(app) {
+exports.init = function(application) {
+	app = application;
 	bootstrap.get_config(function(cfg) {
-		console.log(cfg);
 		themes.backend_theme = root + '/themes/' + cfg.themes.backend,
 		themes.frontend_theme = root + '/themes/' + cfg.themes.frontend;
-		themes.admin_active = false;
+		themes.active = themes.frontend_theme;
 
 		app.configure(function(){
 			app.set('views', themes.backend_theme + '/views');
@@ -20,20 +21,22 @@ exports.init = function(app) {
 	});
 }
 
-var set_admin_active = function(req) {
-	themes.admin_active = /\/admin/i.test(req.url);
-	//hier zit n probleem.
-	exports.set_theme(exports.get_theme());
+var set_active = function(req) {
+	exports.set_theme(/^(\/admin|\/ajax\/admin)/i.test(req.url) ? themes.backend_theme : themes.frontend_theme);
 }
 
 exports.set_theme = function(theme) {
-	themes.frontend_theme = theme;
-}
-exports.get_theme = function() {
-	return themes.admin_active ? themes.backend_theme : themes.frontend_theme;
+	themes.active = theme;
+	app.configure(function(){
+		app.set('views', themes.active + '/views');
+	});
 }
 
-exports.render = function(req, res, view, data, callback) {
+exports.get_theme = function() {
+	return themes.active;
+}
+
+exports.render = function(req, res, view, data) {
 	var callback = callback || false,
 			req = req || {flash:function(){return [];}};
 
@@ -49,19 +52,10 @@ exports.render = function(req, res, view, data, callback) {
       }
     };
 
-		set_admin_active(req);
+		set_active(req);
 
 		var template = xhr_enabled && req.xhr ? ajax : page;
-
-		if (!callback) {
-			res.render(themes.backend_theme + '/views/' + template + '.jade', { locals: locals });
-		}
-		else {
-			jade.renderFile(themes.frontend_theme + '/views/' + view + '.jade', { locals: locals.locals }, function(err, html) {
-				if (err) throw err;
-				callback(html);	
-			});
-		}
+		res.render(themes.active + '/views/' + template + '.jade', { locals: locals });
   });
 }
 
