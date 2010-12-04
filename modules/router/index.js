@@ -72,7 +72,7 @@ exports.crud = function(app, options) {
     db.select(table, where, keys, function(result){
       if (!result.length) {
         req.flash('error', 'A '+table_singular+' called \''+req.params[index]+'\' does not exist.');
-        res.redirect('/');
+        res.redirect('/admin');
         return;
       }
       var data = {type: table, type_singular: table_singular, index: index, fields: result[0]};
@@ -87,7 +87,7 @@ exports.crud = function(app, options) {
     db.select(table, where, keys, function(result){
       if (!result.length) {
         req.flash('error', 'A '+table_singular+' called \''+req.params.name+'\' does not exist.');
-        res.redirect('/');
+        res.redirect('/admin');
         return;
       }
       var data = {type: table, type_singular: table_singular, action: req.url, index: index, data: result[0], fields: fields};
@@ -137,7 +137,7 @@ exports.not_exists = function(options) {
 		where[options.index] = req.body[options.index]; 
 		db.select(options.table, where, {limit:1}, function(result) {
 			if (result.length) {
-				res.redirect('/');
+				res.redirect('/admin');
 				req.flash('error', 'A '+options.table+' with that '+options.index+' already exists.');
 			}	
 			else {
@@ -164,17 +164,16 @@ exports.register = function(app, options, callback, template) {
       var buffer = {};
       for(var i=0,l=result.length;i<l;i++) {
 				var p = result[i][options.path];
-
 				p = helpers.urlify(p);
+        buffer[p] = result[i];
+				buffer[p].index = result[i][options.index];
 
-        buffer[p] = result[i][options.index];
-        
         app.get(p, function(req, res, next) {
 					if (template) {
-						themer.render(req, res, template, result[i]);
+						themer.render(req, res, template, buffer[req.url]);
 					}
 					else {
-          	res.redirect('/'+options.table+'/'+buffer[req.url]);
+          	res.redirect('/'+options.table+'/'+buffer[req.url].index);
 					}
         });
       }

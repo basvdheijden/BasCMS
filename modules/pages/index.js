@@ -39,5 +39,5 @@ exports.init = function(app, sessions) {
 	options.crud.middleware.add_post =  [users.user_access, router.not_exists(options), menus.add_to_menu(e)];
 
   router.crud(app, options);
-  router.register(app, options);
+  router.register(app, options, false, 'pages');
 }

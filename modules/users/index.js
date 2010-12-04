@@ -12,11 +12,11 @@ exports.init = function(app, sess) {
     themer.render(req, res, 'users/login', {action: '/admin/users/login'});
   });
   app.post('/admin/users/login', exports.user_login, function(req, res, next) {
-    res.redirect('/');
+    res.redirect('/admin');
   });
   app.get('/admin/users/logout', exports.user_logout, function(req, res, next) {
     req.flash('info', 'You are no longer logged in');
-    res.redirect('/');
+    res.redirect('/admin');
   });
   
   var options = {
@@ -63,7 +63,7 @@ exports.user_login = function(req, res, next) {
   var params = req.body || req;
   if (!params.name || !params.password) {
     req.flash('error', 'Please fill in a username and password...');
-    res.redirect('/');
+    res.redirect('/admin');
   }
   
   db.select('users', {name: params.name, password: params.password}, {limit: 1, _id: true}, function(result) {
@@ -90,7 +90,7 @@ exports.user_access = function(req, res, next) {
   sessions.get('user', function(err, result) {
     if (!result) {
       req.flash('access', 'You don\'t have permission to access this page.');
-			res.redirect('/');
+			res.redirect('/admin');
     }
 		else {
 			next();	
@@ -101,7 +101,7 @@ exports.user_access = function(req, res, next) {
 exports.user_exists = function(req, res, next) {
   db.select('users', {name: req.params.name}, {limit: 1}, function(result) {
     if (result.length) {
-			res.redirect('/');
+			res.redirect('/admin');
 			req.flash('There is already a user by that name');
     }
 		else {
