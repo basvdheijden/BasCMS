@@ -67,7 +67,7 @@ exports.get_root = function() {
 exports.set_root(process.cwd());
 
 //initialize all modules
-exports.init = function(port) {
+exports.init = function() {
   /* Get robots.txt */
   app.get('/robots.txt', function(req, res, next) {
     fs.readFile(process.cwd() + req.url, function(err, data) {
@@ -134,9 +134,9 @@ exports.init = function(port) {
   }
   
 	//start the server
-  app.listen(port);
+  app.listen(config.port);
 
-  console.log('BAS @ CMS started. port='+port);
+  console.log('BAS @ CMS started. port='+config.port);
 };
 
 

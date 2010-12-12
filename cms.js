@@ -11,5 +11,5 @@ bootstrap.get_config(function(){
 	bootstrap.require('menus');
 	bootstrap.require('content-types');
 	bootstrap.require('dashboard');
-	bootstrap.init(port);
+	bootstrap.init();
 });
