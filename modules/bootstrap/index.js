@@ -4,10 +4,11 @@ var express = require('express'),
     path = require('path'),
     helpers = require('../helpers'),
 		iniparser = require('iniparser'),
-    modules = [],
+    modules = {},
     app = express.createServer(),
-		themer,
     cache = true,
+		themer,
+		theme,
 		root,
     buffer = {
       styles: '', 
@@ -49,7 +50,7 @@ app.set('view options', {
 
 //abstraction of require
 exports.require = function(module) {
-  modules.push(require('../'+module));
+  modules[module] = require('../'+module);
   return exports;
 };
 
@@ -129,16 +130,41 @@ exports.init = function() {
   });
 
 	//initialize all contrib modules
-  for(var i=0,l=modules.length;i<l;i++) {
+  for(var i in modules) {
     typeof modules[i].init === 'function' && modules[i].init(app, sessions);
   }
+
+	//set current theme
+	themer = modules["themer"]; 
+	theme = themer.get_theme();
+
+	//load all theme specific modules, and run their init functions
+	exports.init_theme(function(mods) {
+		for(var module in mods) {
+			//expose modules to theme module
+			mods[module].modules = modules;
+			typeof mods[module].init === 'function' && mods[module].init(app, sessions);	
+		}
+	});
   
 	//start the server
   app.listen(config.port);
-
   console.log('BAS @ CMS started. port='+config.port);
 };
 
+exports.init_theme = function(callback) {
+	if (!theme) return;
+	var modules_path = theme + '/modules';
+	var theme_modules = {};
+	fs.readdir(modules_path, function(err, files) {
+		if (err) return;
+
+		files.forEach(function(file){
+			theme_modules[file] = require(modules_path + '/' + file);
+		});
+		callback(theme_modules);
+	});
+}
 
 //function to fetch the global application
 exports.get_app = function() {

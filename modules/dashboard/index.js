@@ -7,10 +7,4 @@ exports.init = function(app) {
 			themer.render(req, res, 'dashboard', { links: menus });
 		});
 	});
-
-	app.get('/', function(req, res) {
-		menus.render_menu(['primary'], function(items){
-			themer.render(req, res, 'menu', items);	
-		});
-	});
 };

@@ -1,6 +1,4 @@
-var bootstrap = require('./modules/bootstrap'),
-    port  = 8080
-
+var bootstrap = require('./modules/bootstrap');
 bootstrap.set_cache(false);
 
 bootstrap.get_config(function(){
