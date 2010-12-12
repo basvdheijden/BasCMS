@@ -1,5 +1,6 @@
 != partial('regions/header', { locals: locals })
 #page-wrapper
 	#content
-		!= partial(locals.view, { locals: locals })
+		- each v,k in locals.data
+			!= partial(k, { locals: { data: v } })
 != partial('regions/footer')
