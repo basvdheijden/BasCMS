@@ -9,5 +9,6 @@ bootstrap.get_config(function(){
 	bootstrap.require('menus');
 	bootstrap.require('content-types');
 	bootstrap.require('dashboard');
+	bootstrap.require('twitter');
 	bootstrap.init();
 });

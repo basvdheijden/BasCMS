@@ -1,0 +1,7 @@
+ul#tweets
+	- each tweet in data.results
+		li.clearfix
+			span.profile
+				img(class: 'profile_img', src: tweet.profile_image_url)
+				a(target: '_blank', href: 'http://twitter.com/#!/' + tweet.from_user)=tweet.from_user
+			span.text=tweet.text

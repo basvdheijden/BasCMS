@@ -1,3 +1,5 @@
+var events = require('events');
+
 exports.init = function(app) {
 	var home = {
 		pages: {
@@ -12,15 +14,33 @@ exports.init = function(app) {
 }
 
 exports.format = function(req, res, data, callback) {
-	exports.modules['menus'].render_menu(['primary'], function(items){
-		var page = {
-			menu: items,
-		};
+	var document = new events.EventEmitter(),
+			count = 0,
+			page = {};
 
-		for(var i in data) {
-			page[i] = data[i];	
+	for(var i in data) {
+		page[i] = data[i];	
+	}
+
+	var check = function(){
+		count++;
+		if (count >= 2) {
+			document.emit('ready');
 		}
+	}
 
+	document.addListener('ready', function() {
 		exports.modules['themer'].render(req, res, '', page);	
+	});
+
+	exports.modules['menus'].render_menu(['primary'], function(items){
+		page.menu = items;
+		check();
+	});
+
+	console.log(typeof exports.modules['twitter'].render_tweets)
+	exports.modules['twitter'].get_tweets(function(tweets) {
+		page.tweets = tweets;
+		check();
 	});
 };

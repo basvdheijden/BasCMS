@@ -49,3 +49,58 @@ ul#menu li a:hover {
 ul#menu li a {
 	font-weight: bold;	
 }
+
+
+/* Twitter feed */
+ul#tweets { 
+	margin: 0;
+	width: 470px;
+	border: 1x dotted #2b3033;
+	border-bottom: none;
+}
+
+ul#tweets li{
+	padding: 10px;
+	list-style-type: none;
+	border-bottom: 1px dotted #2b3033;
+	font-size: 0.8em;
+	background-color: #111314;
+}
+
+ul#tweets li img{
+	height: 15px;
+	padding: 0 5px 0 5px;
+	position: relative;
+	top: 5px;
+}
+
+ul#tweets li a {
+	font-weight: bold;
+	border: none;
+	padding-right: 5px;
+	position: relative;
+	top: 1px;
+	color: inherit;
+}
+ul#tweets li a:hover {
+	border: none;	
+}
+ul#tweets li .text {
+	margin-left: 10px;	
+}
+ul#tweets li .profile {
+	float: left;
+	position: relative;
+	bottom: 5px;
+	background-color: #000;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	height: 24px;
+}
+ul#tweets li .profile:hover {
+	-moz-box-shadow: 0px 0px 3px #fff;
+	-webkit-box-shadow: 0px 0px 3px #fff;
+	box-shadow: 0px 0px 3px #fff;
+	color: white;
+}
