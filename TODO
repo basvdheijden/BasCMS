@@ -1,0 +1,30 @@
+@todo cms 0.0.1
+---------------
+1: middleware to crud
+0: impo: add content types to db instead of in code.
+0: session support
+
+
+@todo cms 0.0.2
+---------------
+front/end backend implementation
+
+
+
+
+
+
+fields:
+------------------
+'select': {
+	'key': 'value',
+	'key': 'value',
+	'key': 'value',
+}
+
+------------------
+'gmap': [] //markers
+------------------
+references?
+
+how to embed drupalblocks inside page??
